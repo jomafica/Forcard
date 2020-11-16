@@ -13,6 +13,9 @@
 		4D2E462C2555A45A004FD84F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D2E462B2555A45A004FD84F /* Assets.xcassets */; };
 		4D2E462F2555A45A004FD84F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D2E462E2555A45A004FD84F /* Preview Assets.xcassets */; };
 		4D2E46322555A45A004FD84F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D2E46302555A45A004FD84F /* LaunchScreen.storyboard */; };
+		4DDF0BDB2560164B0084C9AF /* Datastructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF0BDA2560164B0084C9AF /* Datastructure.swift */; };
+		4DDF0BDF256096370084C9AF /* API_CALL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF0BDE256096370084C9AF /* API_CALL.swift */; };
+		65F3F3C22562BD3B0030FA10 /* fetchimage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F3F3C12562BD3B0030FA10 /* fetchimage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +27,9 @@
 		4D2E462E2555A45A004FD84F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4D2E46312555A45A004FD84F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4D2E46332555A45A004FD84F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4DDF0BDA2560164B0084C9AF /* Datastructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Datastructure.swift; sourceTree = "<group>"; };
+		4DDF0BDE256096370084C9AF /* API_CALL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API_CALL.swift; sourceTree = "<group>"; };
+		65F3F3C12562BD3B0030FA10 /* fetchimage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fetchimage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,10 +65,13 @@
 				4D2E46252555A457004FD84F /* AppDelegate.swift */,
 				4D2E46272555A457004FD84F /* SceneDelegate.swift */,
 				4D2E46292555A457004FD84F /* ContentView.swift */,
+				4DDF0BDA2560164B0084C9AF /* Datastructure.swift */,
+				4DDF0BDE256096370084C9AF /* API_CALL.swift */,
 				4D2E462B2555A45A004FD84F /* Assets.xcassets */,
 				4D2E46302555A45A004FD84F /* LaunchScreen.storyboard */,
 				4D2E46332555A45A004FD84F /* Info.plist */,
 				4D2E462D2555A45A004FD84F /* Preview Content */,
+				65F3F3C12562BD3B0030FA10 /* fetchimage.swift */,
 			);
 			path = Forcard;
 			sourceTree = "<group>";
@@ -145,9 +154,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65F3F3C22562BD3B0030FA10 /* fetchimage.swift in Sources */,
 				4D2E46262555A457004FD84F /* AppDelegate.swift in Sources */,
+				4DDF0BDB2560164B0084C9AF /* Datastructure.swift in Sources */,
 				4D2E46282555A457004FD84F /* SceneDelegate.swift in Sources */,
 				4D2E462A2555A457004FD84F /* ContentView.swift in Sources */,
+				4DDF0BDF256096370084C9AF /* API_CALL.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,7 +228,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -271,7 +283,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -288,6 +300,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Forcard/Preview Content\"";
+				DEVELOPMENT_TEAM = 4F9VG25MLA;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Forcard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -308,6 +321,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Forcard/Preview Content\"";
+				DEVELOPMENT_TEAM = 4F9VG25MLA;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Forcard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
