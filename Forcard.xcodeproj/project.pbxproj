@@ -17,6 +17,9 @@
 		65F3F3C22562BD3B0030FA10 /* fetchimage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F3F3C12562BD3B0030FA10 /* fetchimage.swift */; };
 		65F3F3E0256543A40030FA10 /* RefreshableScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F3F3DF256543A40030FA10 /* RefreshableScroll.swift */; };
 		65F3F3E32565512B0030FA10 /* ApiCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F3F3E22565512B0030FA10 /* ApiCall.swift */; };
+		65F3F40A25684D530030FA10 /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F3F40925684D520030FA10 /* Spinner.swift */; };
+		65F3F40F25685A100030FA10 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F3F40E25685A100030FA10 /* SafariView.swift */; };
+		65F3F41225685A550030FA10 /* Shapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F3F41125685A550030FA10 /* Shapes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +34,10 @@
 		4DDF0BDA2560164B0084C9AF /* Datastructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Datastructure.swift; sourceTree = "<group>"; };
 		65F3F3C12562BD3B0030FA10 /* fetchimage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fetchimage.swift; sourceTree = "<group>"; };
 		65F3F3DF256543A40030FA10 /* RefreshableScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshableScroll.swift; sourceTree = "<group>"; };
-		65F3F3E22565512B0030FA10 /* ApiCall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiCall.swift; sourceTree = "<group>"; };
+		65F3F3E22565512B0030FA10 /* ApiCall.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; fileEncoding = 4; name = ApiCall.swift; path = Forcard/Sources/ApiCall.swift; sourceTree = SOURCE_ROOT; };
+		65F3F40925684D520030FA10 /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
+		65F3F40E25685A100030FA10 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
+		65F3F41125685A550030FA10 /* Shapes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shapes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,8 +72,8 @@
 			children = (
 				65F3F3E6256557700030FA10 /* Sources */,
 				4D2E46252555A457004FD84F /* AppDelegate.swift */,
-				4D2E46272555A457004FD84F /* SceneDelegate.swift */,
 				4D2E46292555A457004FD84F /* ContentView.swift */,
+				4D2E46272555A457004FD84F /* SceneDelegate.swift */,
 				4D2E462B2555A45A004FD84F /* Assets.xcassets */,
 				4D2E46302555A45A004FD84F /* LaunchScreen.storyboard */,
 				4D2E46332555A45A004FD84F /* Info.plist */,
@@ -87,10 +93,13 @@
 		65F3F3E6256557700030FA10 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				65F3F3E22565512B0030FA10 /* ApiCall.swift */,
 				65F3F3C12562BD3B0030FA10 /* fetchimage.swift */,
 				4DDF0BDA2560164B0084C9AF /* Datastructure.swift */,
-				65F3F3E22565512B0030FA10 /* ApiCall.swift */,
 				65F3F3DF256543A40030FA10 /* RefreshableScroll.swift */,
+				65F3F40925684D520030FA10 /* Spinner.swift */,
+				65F3F40E25685A100030FA10 /* SafariView.swift */,
+				65F3F41125685A550030FA10 /* Shapes.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -170,12 +179,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				65F3F3C22562BD3B0030FA10 /* fetchimage.swift in Sources */,
+				65F3F40F25685A100030FA10 /* SafariView.swift in Sources */,
 				65F3F3E0256543A40030FA10 /* RefreshableScroll.swift in Sources */,
 				4D2E46262555A457004FD84F /* AppDelegate.swift in Sources */,
 				4DDF0BDB2560164B0084C9AF /* Datastructure.swift in Sources */,
 				4D2E46282555A457004FD84F /* SceneDelegate.swift in Sources */,
 				4D2E462A2555A457004FD84F /* ContentView.swift in Sources */,
+				65F3F41225685A550030FA10 /* Shapes.swift in Sources */,
 				65F3F3E32565512B0030FA10 /* ApiCall.swift in Sources */,
+				65F3F40A25684D530030FA10 /* Spinner.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

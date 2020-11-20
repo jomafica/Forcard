@@ -8,29 +8,18 @@
 import Foundation
 import SwiftUI
 import SafariServices
-
-
+import Combine
 
 struct ContentView: View {
-    
-    @State var isLoading = true
     
     var body: some View {
         ZStack{
             Color(red: 0.1, green: 0.1, blue: 0.1).edgesIgnoringSafeArea(.all)
-                if isLoading {
-                    LoadingView()
-                } else {
-                    statusBarView
                     cards()
-                }
-        }.onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                isLoading = false
-            }
+                    statusBarView
         }
     }
-
+ }
     
     var statusBarView: some View {
         GeometryReader { geometry in
@@ -40,50 +29,31 @@ struct ContentView: View {
         }
     }
 
-struct LoadingView: View {
-    @State var isLoading = true
-    
-    var body: some View {
-        ZStack {
-         
-                    Text("Fetching Data")
-                        .font(.system(.body, design: .rounded))
-                        .bold()
-                        .offset(x: 0, y: -25)
-         
-                    RoundedRectangle(cornerRadius: 3)
-                        .stroke(Color(.systemGray5), lineWidth: 3)
-                        .frame(width: 250, height: 3)
-         
-                    RoundedRectangle(cornerRadius: 3)
-                        .stroke(Color.blue, lineWidth: 3)
-                        .frame(width: 30, height: 3)
-                        .offset(x: isLoading ? 110 : -110, y: 0)
-                        .animation(Animation.linear(duration: 1).repeatForever(autoreverses: false))
-                }
-
-            }
-    }
-
-struct cards: View{
-    @StateObject public var networkManager = NetworkManager()
+struct cards: View {
+    @State var Loading = true
+    @StateObject var networkManager = NetworkManager()
+    @State private var moveRightLeft = false
     @State var showSafari = false
     
-    struct SafariView: UIViewControllerRepresentable {
-
-        let url: URL
-
-        func makeUIViewController(context:     UIViewControllerRepresentableContext<SafariView>) -> SFSafariViewController {
-            return SFSafariViewController(url: url)
-        }
-
-        func updateUIViewController(_ uiViewController: SFSafariViewController, context:     UIViewControllerRepresentableContext<SafariView>) {
-
-        }
-
-    }
     var body: some View {
-      RefreshableScrollView(height: 70, refreshing: self.$networkManager.loading) {
+        if networkManager.articles.isEmpty {
+            ZStack {
+                Capsule()  // Inactive
+                    .frame(width: 128, height: 6, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    .foregroundColor(Color(.systemGray4))
+                    
+                Capsule()
+                    .clipShape(Rectangle().offset(x: moveRightLeft ? 80 : -80))
+                    .frame(width: 100, height: 6, alignment: .leading)
+                    .foregroundColor(Color(.systemBlue))
+                    .offset(x: moveRightLeft ? 14 : -14)
+                    .animation(Animation.easeInOut(duration: 0.5).delay(0.2).repeatForever(autoreverses: true))
+                    .onAppear {
+                        moveRightLeft.toggle()
+                    }
+            }
+        } else {
+        RefreshableScrollView(height: 70, refreshing: self.$networkManager.loading) {
         LazyVStack(spacing: 30) {
             ForEach(networkManager.articles, id: \.id){ Art_jbody in
                 Button(action: {
@@ -125,31 +95,12 @@ struct cards: View{
                 .sheet(isPresented: self.$showSafari) {
                     SafariView(url:URL(string: Art_jbody.content.url_art)!)
             }
+                    }
+                    }
+                }
             }
         }
     }
-  }
-}
-    
-}
-
-struct RoundedCorner: Shape {
-
-    var radius: CGFloat = .infinity
-    var corners: UIRectCorner = .allCorners
-
-    func path(in rect: CGRect) -> Path {
-        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-        return Path(path.cgPath)
-    }
-}
-
-extension View {
-    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
-        clipShape( RoundedCorner(radius: radius, corners: corners) )
-        }
-    }
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
