@@ -10,27 +10,28 @@
 
 import Foundation
 
-struct Art_jbody: Decodable {
-     let id: String
+struct Art_jbody: Decodable, Equatable {
+    var id: String
      let content: Art
     
     enum CodingKeys: String, CodingKey {
            case id = "id_art"
            case content = "content"
         }
+    static func ==(lhs: Art_jbody, rhs: Art_jbody) -> Bool {
+        return lhs.id == rhs.id && lhs.content == rhs.content
+    }
 }
 
-struct Art: Decodable {
+struct Art: Decodable, Equatable {
      let title_art: String
      let description: String!
-     let data: String?
      let url_art: String
      let img_art: String
     
     enum CodingKeys: String, CodingKey {
             case title_art = "title_art"
             case description = "description"
-            case data = "data"
             case url_art = "url_art"
             case img_art = "img_art"
         }

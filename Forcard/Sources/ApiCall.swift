@@ -6,59 +6,135 @@
 //
 
 import Foundation
-import Combine
 
-class NetworkManager: ObservableObject {
-    private let url = URL(string: "http://127.0.0.1:5000/api/v1/resource/0")!
+class NewsFeed: ObservableObject, RandomAccessCollection {
+    typealias Element = NewsListItem
     
-    @Published var loading: Bool = false {
+    @Published var newsListItems = [NewsListItem]()
+    
+    @Published var loadingg: Bool = false {
         didSet {
-            if oldValue == false && loading == true {
-                self.load()
+            if oldValue == false && loadingg == true {
+                refresh = LoadStatus.ready(nextPage: 1)
+                self.loadMoreArticles()
             }
         }
     }
-
     
-    @Published var articles = [Art_jbody]()
+    @Published var isLoading: Bool = false
     
-    init(){
-        load()
+    var startIndex: Int { newsListItems.startIndex }
+    var endIndex: Int { newsListItems.endIndex }
+    var refresh = LoadStatus.ready(nextPage: 1)
+    var loadStatus = LoadStatus.ready(nextPage: 1)
+    
+        
+    var urlBase = "http://127.0.0.1:5000/api/v1/resource/"
+    
+    init() {
+        loadMoreArticles()
     }
     
-    func load() {
-
-        URLSession.shared.dataTask(with: url) {(data,response,error) in
-            do {
-                if let d = try? Data(contentsOf: self.url) {
-                    let decodedLists = try JSONDecoder().decode([Art_jbody].self, from: d)
-                    DispatchQueue.main.async() {
-                        self.articles = decodedLists
-                        debugPrint(decodedLists)
-                        self.loading = false
-                    }
-                }else {
-                    print("No Data")
-                }
-            } catch DecodingError.dataCorrupted(let context) {
-                print(context)
-            } catch DecodingError.keyNotFound(let key, let context) {
-                print("Key '\(key)' not found:", context.debugDescription)
-                print("codingPath:", context.codingPath)
-            } catch DecodingError.valueNotFound(let value, let context) {
-                print("Value '\(value)' not found:", context.debugDescription)
-                print("codingPath:", context.codingPath)
-            } catch DecodingError.typeMismatch(let type, let context)  {
-                print("Type '\(type)' mismatch:", context.debugDescription)
-                print("codingPath:", context.codingPath)
-            } catch {
-                print("error: ", error)
+    subscript(position: Int) -> NewsListItem {
+        return newsListItems[position]
+    }
+    
+    func loadMoreArticles(currentItem: NewsListItem? = nil) {
+        
+        if !shouldLoadMoreData(currentItem: currentItem) {
+            return
+        }
+        guard case let .ready(page) = loadStatus else {
+            return
+        }
+        loadStatus = .loading(page: page)
+        let urlString = "\(urlBase)\(page)"
+        
+        let url = URL(string: urlString)!
+        let task = URLSession.shared.dataTask(with: url, completionHandler: parseArticlesFromResponse(data:response:error:))
+        task.resume()
+    }
+    
+    func shouldLoadMoreData(currentItem: NewsListItem? = nil) -> Bool {
+        guard let currentItem = currentItem else {
+            return true
+        }
+        
+        for n in (newsListItems.count - 4)...(newsListItems.count-1) {
+            if n >= 0 && currentItem.id == newsListItems[n].id {
+                self.isLoading = true
+                return true
             }
-            
-        }.resume()
-         
+        }
+        self.isLoading = false
+        return false
+    }
+    
+    func parseArticlesFromResponse(data: Data?, response: URLResponse?, error: Error?) {
+        guard error == nil else {
+            print("Error: \(error!)")
+            loadStatus = .parseError
+            return
+        }
+        guard let data = data else {
+            print("No data found")
+            loadStatus = .parseError
+            return
+        }
+        
+        let newArticles = parseArticlesFromData(data: data)
+        DispatchQueue.main.async {
+            self.newsListItems.append(contentsOf: newArticles)
+            self.loadingg = false
+            if newArticles.count == 0 {
+                self.loadStatus = .done
+            } else {
+                guard case let .loading(page) = self.loadStatus else {
+                    fatalError("loadSatus is in a bad state")
+                }
+                self.loadStatus = .ready(nextPage: page + 1)
+            }
+        }
+    }
+    
+    func parseArticlesFromData(data: Data) -> [NewsListItem] {
+        var response: NewsApiResponse
+        do {
+            response = try JSONDecoder().decode(NewsApiResponse.self, from: data)
+        } catch {
+            print("Error parsing the JSON: \(error)")
+            return []
+        }
+        if response.status != "ok" {
+            print("Status is not ok: \(response.status)")
+            return []
+        }
+        return response.articles ?? []
+    }
+    enum LoadStatus {
+        case ready (nextPage: Int)
+        case loading (page: Int)
+        case parseError
+        case done
     }
 }
 
+class NewsApiResponse: Codable {
+    var status: String
+    var articles: [NewsListItem]?
 
+}
 
+struct NewsListItem: Identifiable, Codable, Equatable {
+    var id = UUID()
+
+    var title: String
+    var description: String?
+    var url: String
+    var img: String
+    
+    enum CodingKeys: String, CodingKey {
+        case title, description, url, img
+
+        }
+}
