@@ -15,8 +15,10 @@ class NewsFeed: ObservableObject, RandomAccessCollection {
     @Published var refresh: Bool = false {
         didSet {
             if oldValue == false && refresh == true {
-                refreshTop = LoadStatus.ready(nextPage: 1)
+                loadStatus = LoadStatus.ready(nextPage: 1)
+                newsListItems = []
                 self.loadMoreArticles()
+
             }
         }
     }
@@ -25,9 +27,7 @@ class NewsFeed: ObservableObject, RandomAccessCollection {
     
     var startIndex: Int { newsListItems.startIndex }
     var endIndex: Int { newsListItems.endIndex }
-    var refreshTop = LoadStatus.ready(nextPage: 1)
     var loadStatus = LoadStatus.ready(nextPage: 1)
-    
         
     var urlBase = "http://127.0.0.1:5000/api/v1/resource/"
     
@@ -38,7 +38,7 @@ class NewsFeed: ObservableObject, RandomAccessCollection {
     subscript(position: Int) -> NewsListItem {
         return newsListItems[position]
     }
-    
+        
     func loadMoreArticles(currentItem: NewsListItem? = nil) {
         
         if !shouldLoadMoreData(currentItem: currentItem) {

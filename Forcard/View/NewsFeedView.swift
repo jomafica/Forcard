@@ -6,15 +6,17 @@
 //
 
 import SwiftUI
+import GoogleMobileAds
 
 struct NewsFeedView: View {
     @ObservedObject var newsFeed = NewsFeed()
     @State private var moveRightLeft = false
     @State var refresh = true
-    
+        
     var body: some View {
         if newsFeed.isEmpty {
             ZStack {
+                Color(red: 0.1, green: 0.1, blue: 0.1).edgesIgnoringSafeArea(.all)
                 Capsule()  // Inactive
                     .frame(width: 128, height: 6, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                     .foregroundColor(Color(.systemGray4))
@@ -60,7 +62,7 @@ struct NewsFeedView: View {
 struct NewsListItemListView: View {
     var article: NewsListItem
     @State var showSafari = false
-    
+       
     var body: some View {
         Button(action: {
             self.showSafari = true
@@ -71,8 +73,7 @@ struct NewsListItemListView: View {
             .shadow(radius: 8)
             .overlay(
                 VStack(alignment: .center){
-                    RemoteImage(url: article.img)
-                        .cornerRadius(20, corners: [.topLeft,.topRight])
+                    UrlImageView(urlString: article.img)
                     Spacer()
                         .frame(height: 10)
                     Text(article.title)
@@ -103,6 +104,7 @@ struct NewsListItemListView: View {
             }
     }
 }
+
 
 struct NewsFeedView_Previews: PreviewProvider {
     static var previews: some View {
