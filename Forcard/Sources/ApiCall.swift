@@ -12,10 +12,10 @@ class NewsFeed: ObservableObject, RandomAccessCollection {
     
     @Published var newsListItems = [NewsListItem]()
     
-    @Published var loadingg: Bool = false {
+    @Published var refresh: Bool = false {
         didSet {
-            if oldValue == false && loadingg == true {
-                refresh = LoadStatus.ready(nextPage: 1)
+            if oldValue == false && refresh == true {
+                refreshTop = LoadStatus.ready(nextPage: 1)
                 self.loadMoreArticles()
             }
         }
@@ -25,7 +25,7 @@ class NewsFeed: ObservableObject, RandomAccessCollection {
     
     var startIndex: Int { newsListItems.startIndex }
     var endIndex: Int { newsListItems.endIndex }
-    var refresh = LoadStatus.ready(nextPage: 1)
+    var refreshTop = LoadStatus.ready(nextPage: 1)
     var loadStatus = LoadStatus.ready(nextPage: 1)
     
         
@@ -85,7 +85,7 @@ class NewsFeed: ObservableObject, RandomAccessCollection {
         let newArticles = parseArticlesFromData(data: data)
         DispatchQueue.main.async {
             self.newsListItems.append(contentsOf: newArticles)
-            self.loadingg = false
+            self.refresh = false
             if newArticles.count == 0 {
                 self.loadStatus = .done
             } else {
