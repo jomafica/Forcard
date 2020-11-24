@@ -25,7 +25,7 @@ class NewsFeed: ObservableObject, RandomAccessCollection {
     
     @Published var isLoading: Bool = false
     
-    @Published var selectedItem = NewsListItem(title: "",description: "", url: "", img: "")
+    @Published var selectedItem = NewsListItem(title: "",description: "", url: "", img: "", date: "")
     
     @Published var show = false
     
@@ -65,7 +65,7 @@ class NewsFeed: ObservableObject, RandomAccessCollection {
             return true
         }
         
-        for n in (newsListItems.count - 4)...(newsListItems.count-1) {
+        for n in (newsListItems.count - 7)...(newsListItems.count-1) {
             if n >= 0 && currentItem.id == newsListItems[n].id {
                 self.isLoading = true
                 return true
@@ -137,9 +137,10 @@ struct NewsListItem: Identifiable, Codable {
     var description: String?
     var url: String
     var img: String
+    var date: String
     
     enum CodingKeys: String, CodingKey {
-        case title, description, url, img
+        case title, description, url, img, date
 
         }
 }
