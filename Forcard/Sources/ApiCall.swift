@@ -25,11 +25,16 @@ class NewsFeed: ObservableObject, RandomAccessCollection {
     
     @Published var isLoading: Bool = false
     
+    @Published var selectedItem = NewsListItem(title: "",description: "", url: "", img: "")
+    
+    @Published var show = false
+    
+    
     var startIndex: Int { newsListItems.startIndex }
     var endIndex: Int { newsListItems.endIndex }
     var loadStatus = LoadStatus.ready(nextPage: 1)
         
-    var urlBase = "http://127.0.0.1:5000/api/v1/resource/"
+    var urlBase = "http://192.168.1.122:5000/api/v1/resource/"
     
     init() {
         loadMoreArticles()
@@ -125,7 +130,7 @@ class NewsApiResponse: Codable {
 
 }
 
-struct NewsListItem: Identifiable, Codable, Equatable {
+struct NewsListItem: Identifiable, Codable {
     var id = UUID()
 
     var title: String
