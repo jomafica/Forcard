@@ -13,6 +13,7 @@
 		4D2E462C2555A45A004FD84F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D2E462B2555A45A004FD84F /* Assets.xcassets */; };
 		4D2E462F2555A45A004FD84F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D2E462E2555A45A004FD84F /* Preview Assets.xcassets */; };
 		4D2E46322555A45A004FD84F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D2E46302555A45A004FD84F /* LaunchScreen.storyboard */; };
+		4DB985182570891600ACD27F /* CardShimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB985172570891600ACD27F /* CardShimmerView.swift */; };
 		4DDF0C0F256C87070084C9AF /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF0C0E256C87070084C9AF /* DetailView.swift */; };
 		4DDF0C1B256D20ED0084C9AF /* TodayCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF0C1A256D20ED0084C9AF /* TodayCardView.swift */; };
 		4DDF0C25256EC1A20084C9AF /* cardboard-box.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DDF0C24256EC1A20084C9AF /* cardboard-box.png */; };
@@ -35,6 +36,7 @@
 		4D2E462E2555A45A004FD84F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4D2E46312555A45A004FD84F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4D2E46332555A45A004FD84F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4DB985172570891600ACD27F /* CardShimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardShimmerView.swift; sourceTree = "<group>"; };
 		4DDF0C0E256C87070084C9AF /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		4DDF0C1A256D20ED0084C9AF /* TodayCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayCardView.swift; sourceTree = "<group>"; };
 		4DDF0C24256EC1A20084C9AF /* cardboard-box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cardboard-box.png"; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				65BFC6E8256AC5F200D6E5A3 /* UrlImageView.swift */,
 				4DDF0C1A256D20ED0084C9AF /* TodayCardView.swift */,
 				4DDF0C0E256C87070084C9AF /* DetailView.swift */,
+				4DB985172570891600ACD27F /* CardShimmerView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -209,6 +212,7 @@
 				65BFC6D0256A8DF300D6E5A3 /* NewsFeedView.swift in Sources */,
 				65F3F40F25685A100030FA10 /* SafariView.swift in Sources */,
 				65F3F3E0256543A40030FA10 /* RefreshableScroll.swift in Sources */,
+				4DB985182570891600ACD27F /* CardShimmerView.swift in Sources */,
 				65BFC6E6256AC55A00D6E5A3 /* UrlImageModel.swift in Sources */,
 				4D2E46262555A457004FD84F /* AppDelegate.swift in Sources */,
 				4DDF0C0F256C87070084C9AF /* DetailView.swift in Sources */,

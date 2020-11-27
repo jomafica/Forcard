@@ -15,21 +15,14 @@ struct NewsFeedView: View {
         
     var body: some View {
         if newsFeed.newsListItems.isEmpty {
-            ZStack {
-                //Color(red: 0.1, green: 0.1, blue: 0.1).edgesIgnoringSafeArea(.all)
-                Capsule()  
-                    .frame(width: 128, height: 6, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                    .foregroundColor(Color(.systemGray4))
-                
-                Capsule()
-                    .clipShape(Rectangle().offset(x: moveRightLeft ? 80 : -80))
-                    .frame(width: 100, height: 6, alignment: .leading)
-                    .foregroundColor(Color(.systemBlue))
-                    .offset(x: moveRightLeft ? 14 : -14)
-                    .animation(Animation.easeInOut(duration: 0.5).delay(0.2).repeatForever(autoreverses: true))
-                    .onAppear {
-                        moveRightLeft.toggle()
+            ZStack{
+                Color(red: 0.1, green: 0.1, blue: 0.1).edgesIgnoringSafeArea(.all)
+                    ScrollView(showsIndicators: false){
+                            ForEach(0...2, id: \.self) { _ in
+                                CardShimmer()
                     }
+                }
+                statusBarView
             }
         } else {
             ZStack{

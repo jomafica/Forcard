@@ -23,7 +23,7 @@ struct Detail: View {
                     ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
                         UrlImageView(urlString: article.selectedItem.img)
                             .aspectRatio(contentMode: .fill)
-                            .matchedGeometryEffect(id: article.selectedItem.img, in: animation)
+                            .matchedGeometryEffect(id: "image\(article.selectedItem.img)", in: animation)
                             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2.5)
                         }
                     .offset(y: (reader.frame(in: .global).minY > 0 && scale == 1) ? -reader.frame(in: .global).minY : 0)

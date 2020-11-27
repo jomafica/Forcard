@@ -16,7 +16,8 @@ struct TodayCardView: View {
                 UrlImageView(urlString: article.img)
                     .aspectRatio(contentMode: .fill)
                     .frame(width: UIScreen.main.bounds.width - 30, height: 250)
-                    .matchedGeometryEffect(id: article.img, in: animation)
+                    .matchedGeometryEffect(id: "image\(article.img)", in: animation)
+                    // resolve duplicate image .opacity(0)
             
             HStack{
                 
