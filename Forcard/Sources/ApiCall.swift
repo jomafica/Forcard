@@ -9,24 +9,20 @@ import Foundation
 
 class NewsFeed: ObservableObject, RandomAccessCollection {
     typealias Element = NewsListItem
-    
-    @Published var newsListItems = [NewsListItem]()
-    
+
     @Published var refresh: Bool = false {
         didSet {
             if oldValue == false && refresh == true {
                 loadStatus = LoadStatus.ready(nextPage: 1)
                 newsListItems = []
                 self.loadMoreArticles()
-
             }
         }
     }
-    
-    @Published var isLoading: Bool = false
-    
+
     @Published var selectedItem = NewsListItem(title: "",description: "", url: "", img: "", date: "")
-    
+    @Published var newsListItems = [NewsListItem]()
+    @Published var isLoading: Bool = false
     @Published var show = false
     
     
@@ -39,14 +35,15 @@ class NewsFeed: ObservableObject, RandomAccessCollection {
     init() {
         loadMoreArticles()
     }
-    
+        
     subscript(position: Int) -> NewsListItem {
         return newsListItems[position]
     }
-        
+            
     func loadMoreArticles(currentItem: NewsListItem? = nil) {
         
         if !shouldLoadMoreData(currentItem: currentItem) {
+            print("do not load more data")
             return
         }
         guard case let .ready(page) = loadStatus else {
@@ -65,13 +62,14 @@ class NewsFeed: ObservableObject, RandomAccessCollection {
             return true
         }
         
-        for n in (newsListItems.count - 7)...(newsListItems.count-1) {
+        for n in (newsListItems.count - 4)...(newsListItems.count-1) {
             if n >= 0 && currentItem.id == newsListItems[n].id {
-                self.isLoading = true
+                print("it reaches the last 4")
+                self.isLoading.toggle()
                 return true
             }
         }
-        self.isLoading = false
+        self.isLoading.toggle()
         return false
     }
     
@@ -89,6 +87,7 @@ class NewsFeed: ObservableObject, RandomAccessCollection {
         
         let newArticles = parseArticlesFromData(data: data)
         DispatchQueue.main.async {
+            print("im quering agaiin")
             self.newsListItems.append(contentsOf: newArticles)
             self.refresh = false
             if newArticles.count == 0 {
@@ -114,7 +113,7 @@ class NewsFeed: ObservableObject, RandomAccessCollection {
             print("Status is not ok: \(response.status)")
             return []
         }
-        return response.articles ?? []
+        return response.articles
     }
     enum LoadStatus {
         case ready (nextPage: Int)
@@ -126,11 +125,11 @@ class NewsFeed: ObservableObject, RandomAccessCollection {
 
 class NewsApiResponse: Codable {
     var status: String
-    var articles: [NewsListItem]?
+    var articles: [NewsListItem]
 
 }
 
-struct NewsListItem: Identifiable, Codable {
+struct NewsListItem: Identifiable, Codable, Hashable {
     var id = UUID()
 
     var title: String

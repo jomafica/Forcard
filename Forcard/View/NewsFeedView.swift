@@ -11,13 +11,13 @@ struct NewsFeedView: View {
     @StateObject var newsFeed = NewsFeed()
     @Namespace private var animation
     @State private var moveRightLeft = false
-    @State var refresh = true
+    @State private var refresh = true
         
     var body: some View {
-        if newsFeed.isEmpty {
+        if newsFeed.newsListItems.isEmpty {
             ZStack {
-                Color(red: 0.1, green: 0.1, blue: 0.1).edgesIgnoringSafeArea(.all)
-                Capsule()  // Inactive
+                //Color(red: 0.1, green: 0.1, blue: 0.1).edgesIgnoringSafeArea(.all)
+                Capsule()  
                     .frame(width: 128, height: 6, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                     .foregroundColor(Color(.systemGray4))
                 
@@ -35,21 +35,22 @@ struct NewsFeedView: View {
             ZStack{
                 Color(red: 0.1, green: 0.1, blue: 0.1).edgesIgnoringSafeArea(.all)
                 RefreshableScrollView(height: 70, refreshing: self.$newsFeed.refresh) {
-                    LazyVStack(spacing: 30) {
-                        ForEach(newsFeed) { (article: NewsListItem) in
+                    LazyVStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, spacing: 25) {
+                        ForEach(newsFeed.newsListItems) { article in
                             TodayCardView(article: article, animation: animation)
-                                .onAppear {
-                                    self.newsFeed.loadMoreArticles(currentItem: article)
-                                }
                                 .onTapGesture {
                                     withAnimation(.interactiveSpring(response: 0.5, dampingFraction: 0.8, blendDuration: 0.8)){
                                         newsFeed.selectedItem = article
                                         newsFeed.show.toggle()
                                     }
                                 }
-                        }
+                                .onAppear {
+                                    self.newsFeed.loadMoreArticles(currentItem: article)
+                                }
+                                .frame(maxWidth: .infinity)
+                            }
+                        Spinner(isAnimating: newsFeed.isLoading, style: .medium, color: .white)
                     }
-                    Spinner(isAnimating: newsFeed.isLoading, style: .medium, color: .white)
                 }
                 statusBarView
                 if newsFeed.show{

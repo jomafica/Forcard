@@ -17,14 +17,8 @@ struct UrlImageView: View {
     var body: some View {
         Image(uiImage: urlImageModel.image ?? UrlImageView.defaultImage!)
             .resizable()
-            .cornerRadius(20, corners: [.topLeft,.topRight])
     }
     
     static var defaultImage = UIImage(named: "NewsIcon")
 }
 
-struct UrlImageView_Previews: PreviewProvider {
-    static var previews: some View {
-        UrlImageView(urlString: nil)
-    }
-}

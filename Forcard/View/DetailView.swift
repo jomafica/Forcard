@@ -25,55 +25,43 @@ struct Detail: View {
                             .aspectRatio(contentMode: .fill)
                             .matchedGeometryEffect(id: article.selectedItem.img, in: animation)
                             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2.5)
-                    }
+                        }
                     .offset(y: (reader.frame(in: .global).minY > 0 && scale == 1) ? -reader.frame(in: .global).minY : 0)
-                    // Gesture For Closing Detail View....
                     .gesture(DragGesture(minimumDistance: 0).onChanged(onChanged(value:)).onEnded(onEnded(value:)))
-                }
+                    }
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2.5)
-                //.padding(.top,UIApplication.shared.windows.first!.safeAreaInsets.top + 10)
                 VStack{
                     HStack{
-                        Spacer()
-                            .frame(width: 10, height: 10)
                     Text(article.selectedItem.title)
-                        .font(.title)
-                        .foregroundColor(Color.white)
+                        .font(.title2)
                         .multilineTextAlignment(.leading)
-                        //.padding(.horizontal, 1.0)
-                        Spacer()
-                            .frame(width: 10, height: 10)
+                        .foregroundColor(Color.white)
+                        .fixedSize(horizontal: false, vertical: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
+                        .padding()
                     }
-                    Spacer()
                     
                     HStack{
+                    
+                        Text(article.selectedItem.date)
+                            .padding()
+                        
                         Spacer()
-                            .frame(width: 10, height: 10)
-                        HStack(spacing: 10){
-                            Text(article.selectedItem.date)
-                        }
-                        Spacer()
-                            .scaledToFit()
                             
-                        HStack{
-                            Button(action: {
-                                self.showSafari = true
-                            }){
-                                RoundedRectangle(cornerRadius: 40)
-                                    .foregroundColor(Color.blue)
-                                    .overlay(
-                                        Text("VIEW")
-                                            .foregroundColor(Color.white)
-                                    )
-                                    .frame(width: 90.0, height: 30)
-                                    .padding([.top, .bottom], 5.0)
-                            }
-                            .sheet(isPresented: self.$showSafari) {
-                                SafariView(url:URL(string: article.selectedItem.url)!)
-                            }
-                            .frame(height: 40)
-                            Spacer()
-                                .frame(width: 10, height: 10)
+                        Button(action: {
+                            self.showSafari = true
+                        }){
+                            RoundedRectangle(cornerRadius: 40)
+                                .foregroundColor(Color.blue)
+                                .overlay(
+                                    Text("VIEW")
+                                        .foregroundColor(Color.white)
+                                )
+                                .frame(width: 90.0, height: 30)
+                        }
+                        .padding()
+                        .frame(height: 30)
+                        .sheet(isPresented: self.$showSafari) {
+                            SafariView(url:URL(string: article.selectedItem.url)!)
                         }
                     }
                     .background(Color.gray)
@@ -123,3 +111,4 @@ struct Detail: View {
         scale = 1
     }
 }
+ 
