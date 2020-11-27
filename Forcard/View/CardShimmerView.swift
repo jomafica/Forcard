@@ -20,7 +20,7 @@ struct CardShimmer : View {
               .cornerRadius(10)
               
               Color.gray
-              .frame(height: 315)
+              .frame(height: 320)
               .cornerRadius(10)
               .mask(
               
@@ -35,7 +35,6 @@ struct CardShimmer : View {
           }
           .cornerRadius(10)
           .padding(.horizontal)
-          .padding(.top)
           .onAppear {
               
             withAnimation(Animation.default.speed(0.5).delay(0).repeatForever(autoreverses: false)){

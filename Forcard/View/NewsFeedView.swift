@@ -10,7 +10,6 @@ import SwiftUI
 struct NewsFeedView: View {
     @StateObject var newsFeed = NewsFeed()
     @Namespace private var animation
-    @State private var moveRightLeft = false
     @State private var refresh = true
         
     var body: some View {
