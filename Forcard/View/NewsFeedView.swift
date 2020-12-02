@@ -11,6 +11,7 @@ struct NewsFeedView: View {
     @StateObject var newsFeed = NewsFeed()
     @Namespace private var animation
     @State private var refresh = true
+    @StateObject var states = States()
         
     var body: some View {
         if newsFeed.newsListItems.isEmpty {
@@ -29,11 +30,11 @@ struct NewsFeedView: View {
                 RefreshableScrollView(height: 70, refreshing: self.$newsFeed.refresh) {
                     LazyVStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, spacing: 25) {
                         ForEach(newsFeed.newsListItems) { article in
-                            TodayCardView(article: article, animation: animation)
+                            TodayCardView(article: article, animation: animation, states: states)
                                 .onTapGesture {
-                                    withAnimation(.interactiveSpring(response: 0.5, dampingFraction: 0.8, blendDuration: 0.8)){
+                                    withAnimation(.easeInOut(duration: 0.3)){
                                         newsFeed.selectedItem = article
-                                        newsFeed.show.toggle()
+                                        states.hide.toggle()
                                     }
                                 }
                                 .onAppear {
@@ -41,12 +42,13 @@ struct NewsFeedView: View {
                                 }
                                 .frame(maxWidth: .infinity)
                             }
+                            }
                         Spinner(isAnimating: newsFeed.isLoading, style: .medium, color: .white)
-                    }
                 }
                 statusBarView
-                if newsFeed.show{
-                    Detail(article: newsFeed, animation: animation)
+                if states.hide{
+                    DetailNew(article: newsFeed, states: states, animation: animation)
+                    //Detail(article: newsFeed, states: states, animation: animation)
                 }
             }
         }

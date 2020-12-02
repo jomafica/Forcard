@@ -23,14 +23,12 @@ class NewsFeed: ObservableObject, RandomAccessCollection {
     @Published var selectedItem = NewsListItem(title: "",description: "", url: "", img: "", date: "")
     @Published var newsListItems = [NewsListItem]()
     @Published var isLoading: Bool = false
-    @Published var show = false
-    
-    
+
     var startIndex: Int { newsListItems.startIndex }
     var endIndex: Int { newsListItems.endIndex }
     var loadStatus = LoadStatus.ready(nextPage: 1)
         
-    var urlBase = "http://192.168.1.122:5000/api/v1/resource/"
+    var urlBase = "http://192.168.1.2:5000/api/v1/resource/"
     
     init() {
         loadMoreArticles()

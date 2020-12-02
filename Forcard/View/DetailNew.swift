@@ -1,37 +1,67 @@
 //
-//  DetailView.swift
+//  teste.swift
 //  Forcard
 //
-//  Created by Daniel Pereira on 24/11/2020.
+//  Created by Daniel Pereira on 02/12/2020.
 //
 
 import SwiftUI
 
 
-struct Detail: View {
+struct DetailNew: View {
     @State private var backColor:Color = Color(hue: 1.0, saturation: 0.0, brightness: 0.156)
     @State private var blur = CGFloat(0)
     @State var article : NewsFeed
     @State var states : States
     var animation: Namespace.ID
     @State var showSafari = false
-    @State var scale : CGFloat = 1
+    @State private var viewState = CGSize.zero
+    @State private var viewStateCurrent = CGSize.zero
     
     var body: some View {
-        ZStack{
-        ScrollView{
             VStack{
-                GeometryReader{reader in
                     ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
                         UrlImageView(urlString: article.selectedItem.img)
                                 .matchedGeometryEffect(id: "image\(article.selectedItem.id)", in: animation)
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2.5)
                         }
-                    .offset(x: (reader.frame(in: .global).minY > 0 && scale == 1) ? -reader.frame(in: .global).minY : 0, y: (reader.frame(in: .global).minY > 0 && scale == 1) ? -reader.frame(in: .global).minY : 0)
-                    .gesture(DragGesture(minimumDistance: 0).onChanged(onChanged(value:)).onEnded(onEnded(value:)))
-                    }
+                    .offset(x: viewState.width < 0 ? 0 : viewState.width, y: viewState.height < 0 ? 0 : viewState.height)
+                    .gesture(
+                        DragGesture()
+                            .onChanged { value in
+                                self.viewState = value.translation
+                                print(viewState)
+                                withAnimation {
+                                    if self.viewState.height > self.viewStateCurrent.height {
+                                        self.blur = CGFloat(3)
+                                        self.backColor = Color(hue: 1.0, saturation: 0.0, brightness: 0.156).opacity(0.5)
+                                        self.viewStateCurrent = self.viewState
+                                    }
+                                    if self.viewState.height < self.viewStateCurrent.height {
+                                        self.blur = CGFloat(0)
+                                        self.backColor = Color(hue: 1.0, saturation: 0.0, brightness: 0.156)
+                                        self.viewStateCurrent = self.viewState
+                                    }
+                                }
+                            }
+                            .onEnded { value in
+                                if self.viewState.height > 135 {
+                                    withAnimation(.easeInOut(duration: 0.2)){
+                                    states.hide.toggle()
+                                    }
+                                } else {
+                                    withAnimation(.easeInOut(duration: 0.2)){
+                                    self.blur = CGFloat(0)
+                                    self.backColor = Color(hue: 1.0, saturation: 0.0, brightness: 0.156)
+                                    self.viewState = .zero
+                                    }
+                                }
+                    
+                        }
+                    )
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2.5)
+                ScrollView{
                 if states.hide{
                 VStack{
                     HStack{
@@ -70,42 +100,11 @@ struct Detail: View {
                         .multilineTextAlignment(.leading)
                         .padding([.leading, .trailing], 10.0)
                 }
-
-                .blur(radius: blur)
                 }
             }
+                .blur(radius: blur)
         }
-        .scaleEffect(scale)
         .background(backColor)
         .ignoresSafeArea(.all)
-        }
-    }
-    
-    func onChanged(value: DragGesture.Value){
-        let scale = value.translation.height / UIScreen.main.bounds.height
-        withAnimation {
-            if 1 - scale > 0.75{
-                self.scale = 1 - scale
-                self.blur = CGFloat(0)
-                self.backColor = Color(hue: 1.0, saturation: 0.0, brightness: 0.156)
-                
-            }
-            if 1 - scale < 1 {
-                self.blur = CGFloat(3)
-                self.backColor = Color(hue: 1.0, saturation: 0.0, brightness: 0.156).opacity(0.5)
-            }
-        }
-    }
-    
-    func onEnded(value: DragGesture.Value){
-        
-        withAnimation(.easeInOut(duration: 1.0)){
-            if scale < 1{
-                states.hide.toggle()
-            }
-        }
-        self.blur = CGFloat(0)
-        self.backColor = Color(hue: 1.0, saturation: 0.0, brightness: 0.156)
-        scale = 1
     }
 }
