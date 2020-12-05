@@ -22,11 +22,12 @@ struct DetailNew: View {
             VStack{
                     ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
                         UrlImageView(urlString: article.selectedItem.img)
-                                .matchedGeometryEffect(id: "image\(article.selectedItem.id)", in: animation)
+                                .matchedGeometryEffect(id: "image\(article.selectedItem.img)", in: animation)
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2.5)
+
                         }
-                    .offset(x: viewState.width < 0 ? 0 : viewState.width, y: viewState.height < 0 ? 0 : viewState.height)
+                    .offset(x: viewState.width , y: viewState.height)
                     .gesture(
                         DragGesture()
                             .onChanged { value in
@@ -103,7 +104,8 @@ struct DetailNew: View {
                 }
             }
                 .blur(radius: blur)
-        }
+        } // First VStack
+        .matchedGeometryEffect(id: "id\(article.selectedItem.id)", in: animation)
         .background(backColor)
         .ignoresSafeArea(.all)
     }

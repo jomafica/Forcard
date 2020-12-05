@@ -26,6 +26,7 @@ struct NewsFeedView: View {
             }
         } else {
             ZStack{
+                //Color.white.edgesIgnoringSafeArea(.all)
                 Color(red: 0.1, green: 0.1, blue: 0.1).edgesIgnoringSafeArea(.all)
                 RefreshableScrollView(height: 70, refreshing: self.$newsFeed.refresh) {
                     LazyVStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, spacing: 25) {
@@ -41,6 +42,7 @@ struct NewsFeedView: View {
                                     self.newsFeed.loadMoreArticles(currentItem: article)
                                 }
                                 .frame(maxWidth: .infinity)
+                            
                             }
                             }
                         Spinner(isAnimating: newsFeed.isLoading, style: .medium, color: .white)
