@@ -21,36 +21,50 @@ struct TodayCardView: View {
 
                 UrlImageView(urlString: article.img)
                     .matchedGeometryEffect(id: "image\(article.img)", in: animation)
-                    .aspectRatio(contentMode: .fill)
+                    .aspectRatio(2.0, contentMode: .fill)
+                    .frame(width: UIScreen.main.bounds.width, height: 215)
 
-                //.frame(width: UIScreen.main.bounds.width - 30, height: 250)
                 LazyVStack{
                     Spacer()
                 }
-                    HStack{
-
-                        VStack{
-                            Spacer()
-                                .frame(width: UIScreen.main.bounds.width - 30, height: 215)
-                            HStack{
+                HStack{
+                    VStack{
+                        Spacer()
+                            .frame(width: UIScreen.main.bounds.width - 30, height: 215)
+                        HStack{
+                            ZStack{
                                 VStack{
-                            Text(article.title)
-                                .fontWeight(.bold)
-                                .foregroundColor(Color.white)
-                                .truncationMode(.tail)
+                                    Text(article.title)
+                                        .font(.subheadline)
+                                        .foregroundColor(Color.white)
+                                        .lineLimit(2)
                                 }
-                                
-                                Spacer()
-                                    .frame(width: 150, height: UIScreen.main.bounds.height)
+                                .frame(width: 170, height: 35)
+                                .padding()
                             }
+                            .background(BlurView(style: .systemThinMaterial))
+                            .cornerRadius(25)
+                            Spacer()
+                                .frame(width: 30, height: 0)
+                            
+                            VStack{
+                                Spacer()
+                                    .frame(width: 0, height: 25)
+                                
+                                Text(article.date)
+                                    .font(.subheadline)
+                                    .foregroundColor(Color.white)
+                            }
+                            Spacer()
+                                .frame(width: 25, height: UIScreen.main.bounds.height)
                         }
-                        .padding()
-                        .fixedSize(horizontal: false, vertical: true)
                     }
+                    .padding()
+                    .fixedSize(horizontal: false, vertical: true)
+                }
                 .frame(width: UIScreen.main.bounds.width - 30, height: 65)
             }
-            .matchedGeometryEffect(id: "id\(article.id)", in: animation)
-            .frame(width: UIScreen.main.bounds.width, height: 300)
+            .frame(width: UIScreen.main.bounds.width, height: 215)
         }
     }
 }

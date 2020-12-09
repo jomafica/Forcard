@@ -29,7 +29,7 @@ struct NewsFeedView: View {
                 //Color.white.edgesIgnoringSafeArea(.all)
                 Color(red: 0.1, green: 0.1, blue: 0.1).edgesIgnoringSafeArea(.all)
                 RefreshableScrollView(height: 70, refreshing: self.$newsFeed.refresh) {
-                    LazyVStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, spacing: 25) {
+                    LazyVStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, spacing: 60) {
                         ForEach(newsFeed.newsListItems) { article in
                             TodayCardView(article: article, animation: animation, states: states)
                                 .onTapGesture {
@@ -45,12 +45,15 @@ struct NewsFeedView: View {
                             
                             }
                             }
+                    VStack{
+                        Spacer()
+                            .frame(width: 0, height: 40)
                         Spinner(isAnimating: newsFeed.isLoading, style: .medium, color: .white)
+                    }
                 }
                 statusBarView
                 if states.hide{
                     DetailNew(article: newsFeed, states: states, animation: animation)
-                    //Detail(article: newsFeed, states: states, animation: animation)
                 }
             }
         }
